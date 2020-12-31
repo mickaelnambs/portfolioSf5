@@ -3,16 +3,22 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}Welcome!
+			{% block title %}Portfolio!
 			{% endblock %}
 		</title>
-		{% block stylesheets %}{% endblock %}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
 	</head>
 	<body>
+		{% include "front/partials/header.html.twig" %}
 		<main>
 			<div class="container mt-4"> {% block body %}{% endblock %}
 				</div>
 			</main>
-			{% block javascripts %}{% endblock %}
+			{% block javascripts %}
+				{{ encore_entry_script_tags('app') }}
+			{% endblock %}
+			{% include "front/partials/footer.html.twig" %}
 		</body>
 	</html>
