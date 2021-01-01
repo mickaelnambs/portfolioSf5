@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\FormationsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=FormationsRepository::class)
@@ -19,31 +20,36 @@ class Formations
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champ ne peut pas être vide.")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champ ne peut pas être vide.")
      */
     private $school;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Ce champ ne peut pas être vide.")
      */
     private $gradeLevel;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champ ne peut pas être vide.")
      */
     private $description;
 
     /**
      * @ORM\Column(type="date_immutable")
+     * @Assert\NotBlank(message="Ce champ ne peut pas être vide.")
      */
     private $startedAt;
 
     /**
-     * @ORM\Column(type="date_immutable")
+     * @ORM\Column(type="date_immutable", nullable=true)
      */
     private $endedAt;
 

@@ -62,24 +62,4 @@ class BaseController extends AbstractController
             return false;
         }
     }
-
-    /**
-     * Upload Files.
-     *
-     * @param array $files
-     * @param object $object
-     * @return object
-     */
-    public function uploadFiles(array $files, object $object): object
-    {
-        foreach ($files as $file) {
-            $filename = sprintf('%s.%s', Uuid::v4(), $file->guessExtension());
-            $file->move($this->getParameter('upload_directory'), $filename);
-
-            $image = new Images();
-            $image->setName($filename);
-            $object->addImage($image);
-        }
-        return $object;
-    }
 }

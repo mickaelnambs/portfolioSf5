@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\ReferencesRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ReferencesRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ReferencesRepository::class)
@@ -22,37 +24,48 @@ class References
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide.")
+     * @Groups({"get"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide.")
+     * @Groups({"get"})
      */
     private $company;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide.")
+     * @Groups({"get"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="date_immutable")
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide.")
+     * @Groups({"get"})
      */
     private $startedAt;
 
     /**
-     * @ORM\Column(type="date_immutable")
+     * @ORM\Column(type="date_immutable", nullable=true)
+     * @Groups({"get"})
      */
     private $endedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="reference")
+     * @ORM\OneToMany(targetEntity="Medias", mappedBy="reference", cascade={"persist"}, orphanRemoval=true)
+     * @Assert\Count(min=1, minMessage="Vous devez ajouter au moins une image.")
+     * @Groups({"get"})
      */
-    private $images;
+    private $medias;
 
     public function __construct()
     {
-        $this->images = new ArrayCollection();
+        $this->medias = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -121,30 +134,30 @@ class References
     }
 
     /**
-     * @return Collection|Images[]
+     * @return Collection|Medias[]
      */
-    public function getImages(): Collection
+    public function getMedias(): Collection
     {
-        return $this->images;
+        return $this->medias;
     }
 
-    public function addImage(Images $image): self
+    public function addMedia(Medias $media): self
     {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setReference($this);
+        if (!$this->medias->contains($media)) {
+            $this->medias[] = $media;
+            $media->setReference($this);
         }
 
         return $this;
     }
 
-    public function removeImage(Images $image): self
+    public function removeMedia(Medias $media): self
     {
-        if ($this->images->contains($image)) {
-            $this->images->removeElement($image);
+        if ($this->medias->contains($media)) {
+            $this->medias->removeElement($media);
             // set the owning side to null (unless already changed)
-            if ($image->getReference() === $this) {
-                $image->setReference(null);
+            if ($media->getReference() === $this) {
+                $media->setReference(null);
             }
         }
 
