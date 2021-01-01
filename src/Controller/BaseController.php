@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Image;
+use App\Entity\Images;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -63,14 +63,6 @@ class BaseController extends AbstractController
         }
     }
 
-
-
-
-
-
-
-
-
     /**
      * Upload Files.
      *
@@ -84,7 +76,7 @@ class BaseController extends AbstractController
             $filename = sprintf('%s.%s', Uuid::v4(), $file->guessExtension());
             $file->move($this->getParameter('upload_directory'), $filename);
 
-            $image = new Image();
+            $image = new Images();
             $image->setName($filename);
             $object->addImage($image);
         }
