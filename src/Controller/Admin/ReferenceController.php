@@ -39,7 +39,7 @@ class ReferenceController extends BaseController
     /**
      * Permet d'avoir les references.
      * 
-     * @Route("/", name="reference_manage", methods={"POS","GET"})
+     * @Route("/", name="reference_manage", methods={"POST","GET"})
      *
      * @return Response
      */
