@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass=MediasRepository::class)
+ * @ORM\EntityListeners({"App\EntityListener\MediaListener"})
  */
 class Medias
 {

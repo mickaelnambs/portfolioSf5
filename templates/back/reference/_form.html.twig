@@ -12,9 +12,9 @@
 		<button type="button" class="btn btn-primary collection-add" data-collection="{{ form.medias.vars.id }}">
 			<i class="fas fa-plus"></i>
 		</button>
-		<div id="{{ form.medias.vars.id }}" class="collection" data-index="{{ form.medias|length == 0 ? 0 : form.medias|last.vars.name + 1 }}" data-prototype="{{ include("back_office/media/_form.html.twig", { form: form.medias.vars.prototype })|e(" html_attr") }}">
+		<div id="{{ form.medias.vars.id }}" class="collection" data-index="{{ form.medias|length == 0 ? 0 : form.medias|last.vars.name + 1 }}" data-prototype="{{ include("back/media/_form.html.twig", { form: form.medias.vars.prototype })|e("html_attr") }}">
 			{% for media in form.medias %}
-				{{ include("back_office/media/_form.html.twig", { form: media }) }}
+				{{ include("back/media/_form.html.twig", { form: media }) }}
 			{% endfor %}
 		</div>
 	</div>

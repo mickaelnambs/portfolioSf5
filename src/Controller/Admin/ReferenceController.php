@@ -72,10 +72,10 @@ class ReferenceController extends BaseController
                 );
                 return $this->redirectToRoute("reference_manage");
             }
-            return $this->render('back/reference/create.html.twig', [
-                'form' => $form
-            ]);
         }
+        return $this->render('back/reference/new.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
@@ -100,10 +100,10 @@ class ReferenceController extends BaseController
                 );
                 return $this->redirectToRoute("reference_manage");
             }
-            return $this->render('back/reference/edit.html.twig', [
-                'form' => $form
-            ]);
         }
+        return $this->render('back/reference/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
