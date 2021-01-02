@@ -4,7 +4,6 @@ namespace App\EntityListener;
 
 use App\Entity\Medias;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Uid\Uuid;
 
 class MediaListener
 {
@@ -51,7 +50,7 @@ class MediaListener
     public function upload(Medias $media): void
     {
         if ($media->getFile() instanceof UploadedFile) {
-            $filename = sprintf("%s.%s", Uuid::v4(), $media->getFile()->getClientOriginalExtension());
+            $filename = sprintf("%s.%s", bin2hex(random_bytes(6)), $media->getFile()->getClientOriginalExtension());
             $media->getFile()->move($this->uploadAbsoluteDir, $filename);
             $media->setPath(sprintf("%s/%s", $this->uploadDir, $filename));
         }
