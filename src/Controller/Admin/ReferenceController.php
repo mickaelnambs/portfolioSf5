@@ -7,6 +7,7 @@ use App\Controller\BaseController;
 use App\Entity\References;
 use App\Form\ReferenceType;
 use App\Repository\ReferencesRepository;
+use App\Service\PaginationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class ReferenceController.
  * 
- * @Route("/references")
+ * @Route("/admin/references")
  * 
  * @author Mickael Nambinintsoa <mickael.nambinintsoa07081999@gmail.com>
  */
@@ -39,14 +40,20 @@ class ReferenceController extends BaseController
     /**
      * Permet d'avoir les references.
      * 
-     * @Route("/", name="reference_manage", methods={"POST","GET"})
+     * @Route("/{page<\d+>?1}", name="reference_manage", methods={"POST","GET"})
      *
+     * @param integer $page
+     * @param PaginationService $pagination
      * @return Response
      */
-    public function manage(): Response
+    public function manage(int $page, PaginationService $pagination): Response
     {
+        $pagination->setEntityClass(References::class)
+            ->setLimit(4)
+            ->setPage($page);
+
         return $this->render('back/reference/manage.html.twig', [
-            'references' => $this->referenceRepo->findAll()
+            'pagination' => $pagination 
         ]);
     }
 

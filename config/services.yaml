@@ -33,3 +33,7 @@ services:
         resource: '../src/EntityListener'
         tags: ['doctrine.orm.entity_listener']
 
+    App\Service\PaginationService:
+        arguments:
+            $templatePath: 'back/partials/pagination.html.twig'
+

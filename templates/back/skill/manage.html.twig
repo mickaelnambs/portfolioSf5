@@ -18,7 +18,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for skill in skills %}
+                        {% for skill in pagination.data %}
                             <tr>
                                 <td class="text-center align-middle">{{ skill.id }}</td>
                                 <td class="text-center align-middle">{{ skill.name }}</td>
@@ -35,6 +35,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                {{ pagination.display() }}
             </div>
         </div>
     </div>

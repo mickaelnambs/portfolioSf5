@@ -19,7 +19,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for formation in formations %}
+                        {% for formation in pagination.data %}
                             <tr>
                                 <td class="text-center align-middle">{{ formation.id }}</td>
                                 <td class="text-center align-middle">{{ formation.name }}</td>
@@ -37,6 +37,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                {{ pagination.display() }}
             </div>
         </div>
     </div>

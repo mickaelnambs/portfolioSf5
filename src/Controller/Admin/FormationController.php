@@ -7,6 +7,7 @@ use App\Controller\BaseController;
 use App\Entity\Formations;
 use App\Form\FormationType;
 use App\Repository\FormationsRepository;
+use App\Service\PaginationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class FormationController.
+ * 
+ * @Route("/admin/formations")
  * 
  * @author Mickael Nambinintsoa <mickael.nambinintsoa07081999@gmail.com>
  */
@@ -37,14 +40,20 @@ class FormationController extends BaseController
     /**
      * Permet d'avoir les formations.
      * 
-     * @Route("/", name="formation_manage", methods={"POST","GET"})
+     * @Route("/{page<\d+>?1}", name="formation_manage", methods={"POST","GET"})
      *
+     * @param integer $page
+     * @param PaginationService $pagination
      * @return Response
      */
-    public function manage(): Response
+    public function manage(int $page, PaginationService $pagination): Response
     {
+        $pagination->setEntityClass(Formations::class)
+            ->setLimit(4)
+            ->setPage($page);
+
         return $this->render('back/formation/manage.html.twig', [
-            'formations' => $this->formationRepo->findAll()
+            'pagination' => $pagination
         ]);
     }
 

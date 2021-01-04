@@ -20,7 +20,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						{% for reference in references %}
+						{% for reference in pagination.data %}
 							<tr>
 								<td class="text-center align-middle">{{ reference.id }}</td>
 								<td class="text-center align-middle">{{ reference.title }}</td>
@@ -41,6 +41,7 @@
 						{% endfor %}
 					</tbody>
 				</table>
+				{{ pagination.display() }}
 			</div>
 		</div>
 	</div>

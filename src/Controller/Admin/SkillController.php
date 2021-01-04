@@ -7,6 +7,7 @@ use App\Controller\BaseController;
 use App\Entity\Skills;
 use App\Form\SkillType;
 use App\Repository\SkillsRepository;
+use App\Service\PaginationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class SkillController.
  * 
- * @Route("/skills")
+ * @Route("/admin/skills")
  * 
  * @author Mickael Nambinintsoa <mickael.nambinintsoa07081999@gmail.com>
  */
@@ -39,14 +40,20 @@ class SkillController extends BaseController
     /**
      * Permet d'avoir tous les competences.
      * 
-     * @Route("/", name="skill_manage", methods={"POST","GET"})
+     * @Route("/{page<\d+>?1}", name="skill_manage", methods={"POST","GET"})
      *
+     * @param integer $page
+     * @param PaginationService $pagination
      * @return Response
      */
-    public function manage(): Response
+    public function manage(int $page, PaginationService $pagination): Response
     {
+        $pagination->setEntityClass(Skills::class)
+            ->setLimit(4)
+            ->setPage($page);
+
         return $this->render('back/skill/manage.html.twig', [
-            'skills' => $this->skillRepo->findAll()
+            'pagination' => $pagination
         ]);
     }
 
